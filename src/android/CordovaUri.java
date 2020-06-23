@@ -26,6 +26,8 @@ import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
+import org.apache.cordova.LOG;
+
 /*
  * This class exists because Andorid FilesProvider doesn't work on Android 4.4.4 and below and throws
  * weird errors.  I'm not sure why writing to shared cache directories is somehow verboten, but it is
@@ -38,6 +40,8 @@ public class CordovaUri {
     private Uri androidUri;
     private String fileName;
     private Uri fileUri;
+
+    private static final String LOG_TAG = "CameraLauncher_CordovaUri";
 
     /*
      * We always expect a FileProvider string to be passed in for the file that we create
@@ -95,6 +99,9 @@ public class CordovaUri {
 
     private String getFileNameFromUri(Uri uri) {
         String fullUri = uri.toString();
+
+        LOG.d(LOG_TAG, "fullUri: " + fullUri);
+
         String partial_path = fullUri.split("external_files")[1];
         File external_storage = Environment.getExternalStorageDirectory();
         String path = external_storage.getAbsolutePath() + partial_path;

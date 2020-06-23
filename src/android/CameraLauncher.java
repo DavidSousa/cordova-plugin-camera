@@ -233,6 +233,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
         // Create the cache directory if it doesn't exist
         cache.mkdirs();
+        LOG.d(LOG_TAG, "getTempDirectoryPath: " + cache.getAbsolutePath());
         return cache.getAbsolutePath();
     }
 
@@ -300,6 +301,10 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
         // Specify file so that large image is captured and returned
         File photo = createCaptureFile(encodingType);
+
+        LOG.d(LOG_TAG, "getActivity: " + cordova.getActivity().toString());
+        LOG.d(LOG_TAG, "applicationId: " + applicationId);
+
         this.imageUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
                 applicationId + ".provider",
                 photo));
